@@ -21,17 +21,37 @@ describe("if there are no words guessed", () => {
   beforeEach(() => {
     wrapper = setup({ guessedWords: [] });
   });
-
-  test("renders without error", () => {
+  test("renders without error component", () => {
     const component = findByTestAttrib(wrapper, "component-guessed-words");
-    expect(component.lenght).toBe(1);
+    expect(component.length).toBe(1);
   });
-  test("renders without error", () => {
+  test("renders without error message", () => {
     const instructions = findByTestAttrib(wrapper, "guess-instructions");
-    expect(instructions.text().lenght).not.toBe(0);
+    expect(instructions.text().length).not.toBe(0);
   });
 });
 
 describe("if there are words guessed", () => {
-  test("renders without error", () => {});
+  let wrapper;
+  const guessedWords = [
+    { guessedWord: "train_1", letterMatchCount: 3 },
+    { guessedWord: "agile", letterMatchCount: 1 },
+    { guessedWord: "party", letterMatchCount: 5 }
+  ];
+
+  beforeEach(() => {
+    wrapper = setup({ guessedWords });
+  });
+  test("renders without error component guess words", () => {
+    const component = findByTestAttrib(wrapper, "component-guessed-words");
+    expect(component.length).toBe(1);
+  });
+  test("renders guess words section", () => {
+    const guessedWordsNode = findByTestAttrib(wrapper, "guessed-words");
+    expect(guessedWordsNode.length).toBe(1);
+  });
+  test("correct number of guessed words", () => {
+    const guessedWordNodes = findByTestAttrib(wrapper, "guessed-word");
+    expect(guessedWordNodes.length).toBe(guessedWords.length);
+  });
 });
