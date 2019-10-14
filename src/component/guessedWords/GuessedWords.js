@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./GuessedWords.css";
 
 const GuessedWords = props => {
   let contents = "";
@@ -9,17 +10,21 @@ const GuessedWords = props => {
     );
   } else {
     const guessedWordsRows = props.guessedWords.map((word, index) => (
-      <tr data-test="guessed-word" key={index}>
+      <tr
+        data-test="guessed-word"
+        key={index}
+        className="GuessedWords__table--body"
+      >
         <td>{word.guessedWord}</td>
         <td>{word.letterMatchCount}</td>
       </tr>
     ));
     contents = (
-      <div data-test="guessed-words">
-        <h3>Guessed Words</h3>
-        <table>
+      <div data-test="guessed-words" className="GuessedWords">
+        <h3 className="GuessedWords__title">Guessed Words</h3>
+        <table className="GuessedWords__table">
           <thead>
-            <tr>
+            <tr className="GuessedWords__table--title">
               <th>Guess</th>
               <th>Matching Letters</th>
             </tr>
