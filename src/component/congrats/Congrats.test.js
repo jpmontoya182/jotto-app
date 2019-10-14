@@ -1,17 +1,19 @@
 import React from "react";
-import Enzyme, { shallow } from "enzyme";
-import EnzymeAdapter from "enzyme-adapter-react-16";
+import { shallow } from "enzyme";
 import Congrats from "./Congrats";
-import { findByTestAttrib,  } from "../../test/testUtils";
+import { findByTestAttrib, checkProps } from "../../../test/testUtils";
 
-Enzyme.configure({ adapter: new EnzymeAdapter() });
+const defaultProps = { success: false };
 
-const setup = (props = {}) => shallow(<Congrats {...props} />);
+// Factory function to creare a shallowWrapper
+const setup = (props = {}) => {
+  const setupProps = { ...defaultProps, ...props };
+  return shallow(<Congrats {...setupProps} />);
+};
 
 test("render without error", () => {
   const wrapper = setup();
   const component = findByTestAttrib(wrapper, "component-congrast");
-  // console.log(component.debug());
   expect(component.length).toBe(1);
 });
 
@@ -27,7 +29,7 @@ test("renders non-empty congrast message when sucess props is true", () => {
   expect(message.text().length).not.toBe(0);
 });
 
-test("does not throw waring with expected props", () => {
-  const expectedProps = setup({ success: false});
-  
+test("does not throw warning with expected props", () => {
+  const expectedProps = { success: true };
+  checkProps(Congrats, expectedProps);
 });
